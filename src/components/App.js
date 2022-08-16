@@ -6,7 +6,7 @@ import PizzaList from "./PizzaList";
 
 function App() {
   const [pizzas, setPizzas] = useState([]);
-  const [pizzaToEdit, setPizzaToEdit] = useState({});
+  const [pizzaToEdit, setPizzaToEdit] = useState(null);
 
   useEffect(() => {
     fetch("http://localhost:3001/pizzas")
@@ -15,10 +15,28 @@ function App() {
       .catch(e => console.error(e));
   }, [])
 
+  function onChangeInput(name, value) {
+    setPizzaToEdit({
+      ...pizzaToEdit,
+      [name]: value,
+    })
+  }
+
+  function handleUpdatePizza(updatedPizza) {
+    setPizzas(pizzas.map(pizza => {
+      if (pizza.id === updatedPizza.id) {
+        return updatedPizza
+      } else {
+        return pizza;
+      }
+    }))
+    setPizzaToEdit(null)
+  }
+
   return (
     <>
       <Header />
-      <PizzaForm pizza={pizzaToEdit} />
+      <PizzaForm pizza={pizzaToEdit} onChangeInput={onChangeInput} onUpdatePizza={handleUpdatePizza} />
       <PizzaList pizzas={pizzas} onEditPizza={setPizzaToEdit} />
     </>
   );

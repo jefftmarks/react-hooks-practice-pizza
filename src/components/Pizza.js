@@ -7,7 +7,7 @@ function Pizza({ pizza, onEditPizza }) {
     <tr>
       <td>{topping}</td>
       <td>{size}</td>
-      <td>{vegetarian}</td>
+      <td>{vegetarian ? "Yes" : "No"}</td>
       <td>
         <button
           type="button"
