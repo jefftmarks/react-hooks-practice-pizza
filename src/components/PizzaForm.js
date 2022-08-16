@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 
-function PizzaForm() {
+function PizzaForm({ pizza }) {
+  const [formData, setFormData] = useState("ice cream");
+
+  console.log(formData)
+
   return (
     <form onSubmit={null /*handle that submit*/}>
       <div className="form-row">
